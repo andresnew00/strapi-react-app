@@ -1,22 +1,34 @@
 import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+
+  const [pokeBuilds, setPokeBuilds] = useState([]);
+
+  useEffect(() => {
+    // update updates the list of builds
+    // when the component is rendered for the first time
+    update();
+  }, []);
+
+  function update() {
+    fetch(`${process.env.REACT_APP_BACKEND}api/builds`)
+      .then(res => res.json())
+      .then(builds => {
+        setPokeBuilds(builds.data);
+        console.log(pokeBuilds)
+      })
+  }
+
+  const listItems = pokeBuilds.map((element) =>
+  <li>{element.attributes.title}</li>
+);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {listItems}
       </header>
     </div>
   );
