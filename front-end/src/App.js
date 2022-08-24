@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import { useState, useEffect } from 'react';
 import './App.css';
 
@@ -19,6 +18,7 @@ function App() {
         setPokeBuilds(builds.data);
         console.log(pokeBuilds)
       })
+      // TODO: Handle error if data is not received with an error message on front end
   }
 
   const listItems = pokeBuilds.map((element) =>
@@ -26,11 +26,16 @@ function App() {
 );
 
   return (
+    <>
     <div className="App">
+    <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
       <header className="App-header">
         {listItems}
       </header>
     </div>
+    </>
   );
 }
 
